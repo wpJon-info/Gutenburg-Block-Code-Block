@@ -1,1 +1,42 @@
-.wp-block-create-block-code-block{background-color:#21759b;color:#fff;padding:2px}
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/code-block/style.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-jon-gutenberg-dev-code-block {
+  position: relative;
+}
+.wp-block-jon-gutenberg-dev-code-block .language-label {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.wp-block-jon-gutenberg-dev-code-block .custom-code-block {
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  padding-top: 32px;
+  background-color: #f6f8fa;
+  font-family: "SF Mono", Monaco, Inconsolata, "Roboto Mono", Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #24292e;
+  overflow-x: auto;
+  white-space: pre;
+}
+.wp-block-jon-gutenberg-dev-code-block .custom-code-block p {
+  margin: 0;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -4,19 +4,71 @@ return array(
 	'code-block' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'create-block/code-block',
-		'version' => '0.1.0',
-		'title' => 'Code Block',
-		'category' => 'widgets',
-		'icon' => 'smiley',
-		'description' => 'Example block scaffolded with Create Block tool.',
+		'name' => 'jon-gutenberg-dev/code-block',
+		'version' => '1.0.0',
+		'title' => 'Jon Gutenberg Dev Code Block',
+		'category' => 'text',
+		'icon' => 'media-code',
+		'description' => 'A custom code block for enhanced content editing.',
 		'example' => array(
 			
 		),
-		'supports' => array(
-			'html' => false
+		'attributes' => array(
+			'content' => array(
+				'type' => 'string',
+				'default' => '// Enter your code here...'
+			),
+			'language' => array(
+				'type' => 'string',
+				'default' => 'javascript'
+			)
 		),
-		'textdomain' => 'code-block',
+		'supports' => array(
+			'html' => false,
+			'color' => array(
+				'gradients' => true,
+				'link' => true,
+				'__experimentalDefaultControls' => array(
+					'background' => true,
+					'text' => true,
+					'link' => true
+				)
+			),
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true,
+				'__experimentalDefaultControls' => array(
+					'margin' => false,
+					'padding' => false
+				)
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'lineHeight' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalFontStyle' => true,
+				'__experimentalTextTransform' => true,
+				'__experimentalTextDecoration' => true,
+				'__experimentalLetterSpacing' => true,
+				'__experimentalDefaultControls' => array(
+					'fontSize' => true
+				)
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true,
+				'__experimentalDefaultControls' => array(
+					'color' => true,
+					'radius' => true,
+					'style' => true,
+					'width' => true
+				)
+			)
+		),
+		'textdomain' => 'jon-gutenberg-dev-code-block',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',

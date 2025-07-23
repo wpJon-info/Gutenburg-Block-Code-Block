@@ -5,8 +5,38 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-code-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.wp-block-jon-gutenberg-dev-code-block {
+	position: relative;
+	
+	.language-label {
+		position: absolute;
+		top: 8px;
+		right: 12px;
+		background: rgba(0, 0, 0, 0.7);
+		color: white;
+		padding: 2px 8px;
+		border-radius: 3px;
+		font-size: 12px;
+		text-transform: uppercase;
+		z-index: 1;
+	}
+
+	.custom-code-block {
+		border: 1px solid #e1e4e8;
+		border-radius: 6px;
+		padding: 16px;
+		padding-top: 32px;
+		background-color: #f6f8fa;
+		font-family: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace;
+		font-size: 14px;
+		line-height: 1.45;
+		color: #24292e;
+		overflow-x: auto;
+		white-space: pre;
+		
+		// Remove default margins
+		p {
+			margin: 0;
+		}
+	}
 }

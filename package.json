@@ -1,8 +1,8 @@
 {
-	"name": "code-block",
-	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"name": "jon-gutenberg-dev-code-block",
+	"version": "1.0.0",
+	"description": "A custom code block for enhanced content editing.",
+	"author": "Jon",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
