@@ -1,70 +1,71 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
+import { 
+    useBlockProps, 
+    InspectorControls,
+    PlainText 
+} from '@wordpress/block-editor';
+import { 
+    PanelBody, 
+    SelectControl,
+    ToggleControl 
+} from '@wordpress/components';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useBlockProps
- */
-import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl } from '@wordpress/components';
+const LANGUAGE_OPTIONS = [
+    { label: 'JavaScript', value: 'javascript' },
+    { label: 'PHP', value: 'php' },
+    { label: 'CSS', value: 'css' },
+    { label: 'HTML', value: 'html' },
+    { label: 'Python', value: 'python' },
+    { label: 'JSON', value: 'json' },
+    { label: 'XML', value: 'xml' },
+    { label: 'SQL', value: 'sql' },
+    { label: 'Plain Text', value: 'text' }
+];
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
-
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
 export default function Edit({ attributes, setAttributes }) {
-	const { content, language } = attributes;
+    const { content, language, showLineNumbers } = attributes;
+    
+    const blockProps = useBlockProps({
+        className: `code-display-block language-${language}`
+    });
 
-	const languageOptions = [
-		{ label: 'JavaScript', value: 'javascript' },
-		{ label: 'HTML', value: 'html' },
-		{ label: 'CSS', value: 'css' },
-		{ label: 'PHP', value: 'php' },
-		{ label: 'Python', value: 'python' },
-		{ label: 'JSON', value: 'json' },
-	];
-
-	return (
-		<>
-			<InspectorControls>
-				<PanelBody title={__('Code Settings', 'jon-gutenberg-dev-code-block')}>
-					<SelectControl
-						label={__('Language', 'jon-gutenberg-dev-code-block')}
-						value={language}
-						options={languageOptions}
-						onChange={(newLanguage) => setAttributes({ language: newLanguage })}
-					/>
-				</PanelBody>
-			</InspectorControls>
-			<div {...useBlockProps()}>
-				<div className="language-label">{language}</div>
-				<RichText
-					tagName="pre"
-					className="custom-code-block"
-					value={content}
-					onChange={(value) => setAttributes({ content: value })}
-					placeholder={__('// Enter your code here...', 'jon-gutenberg-dev-code-block')}
-					allowedFormats={[]}
-				/>
-			</div>
-		</>
-	);
+    return (
+        <>
+            <InspectorControls>
+                <PanelBody title={__('Code Settings', 'jon-gutenberg-dev-code-block')}>
+                    <SelectControl
+                        label={__('Language', 'jon-gutenberg-dev-code-block')}
+                        value={language}
+                        options={LANGUAGE_OPTIONS}
+                        onChange={(value) => setAttributes({ language: value })}
+                    />
+                    <ToggleControl
+                        label={__('Show Line Numbers', 'jon-gutenberg-dev-code-block')}
+                        checked={showLineNumbers}
+                        onChange={(value) => setAttributes({ showLineNumbers: value })}
+                    />
+                </PanelBody>
+            </InspectorControls>
+            
+            <div {...blockProps}>
+                <div className="code-block-header">
+                    <span className="language-label">{language}</span>
+                    <button className="copy-button" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div className="code-content">
+                    <PlainText
+                        value={content}
+                        onChange={(value) => setAttributes({ content: value })}
+                        placeholder={__('Enter your code here...', 'jon-gutenberg-dev-code-block')}
+                        className="code-input"
+                    />
+                </div>
+            </div>
+        </>
+    );
 }

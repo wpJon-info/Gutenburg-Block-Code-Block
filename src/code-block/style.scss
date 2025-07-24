@@ -1,42 +1,137 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+/* Frontend styles - loaded on both editor and frontend */
 
-.wp-block-jon-gutenberg-dev-code-block {
-	position: relative;
-	
-	.language-label {
-		position: absolute;
-		top: 8px;
-		right: 12px;
-		background: rgba(0, 0, 0, 0.7);
-		color: white;
-		padding: 2px 8px;
-		border-radius: 3px;
-		font-size: 12px;
-		text-transform: uppercase;
-		z-index: 1;
-	}
+.code-display-block {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid #F6F8FA;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
 
-	.custom-code-block {
-		border: 1px solid #e1e4e8;
-		border-radius: 6px;
-		padding: 16px;
-		padding-top: 32px;
-		background-color: #f6f8fa;
-		font-family: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace;
-		font-size: 14px;
-		line-height: 1.45;
-		color: #24292e;
-		overflow-x: auto;
-		white-space: pre;
-		
-		// Remove default margins
-		p {
-			margin: 0;
-		}
-	}
+.code-block-header {
+    background: #FCFCFA;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // border-bottom: 1px solid #333;
+}
+
+.language-label {
+    color: #888;
+    font-size: 12px;
+    text-transform: lowercase;
+    font-weight: 500;
+}
+
+.copy-button {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.copy-button:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.code-content {
+    padding: 16px;
+    overflow-x: auto;
+    background-color: #FCFCFA;
+}
+
+.code-content pre {
+    margin: 0;
+    color: #e6e6e6;
+    background: none;
+    padding: 0;
+    overflow: visible;
+}
+
+.code-content code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+/* Syntax highlighting - Claude's color scheme */
+.keyword {
+    color: #ff6b6b; /* Coral red for keywords */
+}
+
+.string {
+    color: #51cf66; /* Green for strings */
+}
+
+.comment {
+    color: #868e96; /* Gray for comments */
+    font-style: italic;
+}
+
+.number {
+    color: #4dabf7; /* Blue for numbers */
+}
+
+.variable {
+    color: #ffd43b; /* Yellow for variables */
+}
+
+.selector {
+    color: #69db7c; /* Light green for CSS selectors */
+}
+
+.property {
+    color: #ff8cc8; /* Pink for CSS properties */
+}
+
+/* Line numbers */
+.line-number {
+    color: #6272a4;
+    margin-right: 1em;
+    user-select: none;
+    display: inline-block;
+    width: 2em;
+    text-align: right;
+}
+
+/* Language-specific adjustments */
+.language-javascript .keyword {
+    color: #ff79c6;
+}
+
+.language-php .keyword {
+    color: #ff79c6;
+}
+
+.language-css .selector {
+    color: #50fa7b;
+}
+
+.language-html .keyword {
+    color: #ff79c6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .code-display-block {
+        margin: 1rem -16px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .code-content {
+        padding: 12px;
+        font-size: 13px;
+    }
 }

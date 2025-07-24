@@ -1,65 +1,28 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
+/* Editor-specific styles - matching Claude's dark theme */
 
+/* Make sure the entire block container is dark in editor */
 .wp-block-jon-gutenberg-dev-code-block {
-	position: relative;
-	
-	.language-label {
-		position: absolute;
-		top: 8px;
-		right: 12px;
-		background: rgba(0, 0, 0, 0.7);
-		color: white;
-		padding: 2px 8px;
-		border-radius: 3px;
-		font-size: 12px;
-		text-transform: uppercase;
-		z-index: 1;
-	}
-
-	.custom-code-block {
-		border: 1px solid #e1e4e8;
-		border-radius: 6px;
-		padding: 16px;
-		padding-top: 32px;
-		min-height: 80px;
-		background-color: #f6f8fa;
-		font-family: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace;
-		font-size: 14px;
-		line-height: 1.45;
-		color: #24292e !important;
-		overflow-x: auto;
-		white-space: pre;
-		
-		&:focus {
-			outline: none;
-			border-color: #0366d6;
-			box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
-		}
-		
-		// Force code styling
-		&, * {
-			color: #24292e !important;
-			font-family: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace !important;
-		}
-		
-		// Placeholder styling
-		&[data-is-placeholder-visible="true"] {
-			color: #6a737d !important;
-			font-style: italic;
-		}
-		
-		// Remove default margins
-		p {
-			margin: 0;
-		}
-		
-		// Make sure the text is editable
-		&[contenteditable="true"] {
-			cursor: text;
-		}
-	}
+    // background: #2b2b2b !important;
+    border-radius: 8px !important;
 }
+
+
+.code-input {
+    background-color: yellow !important; 
+    border: none !important;
+    color: #e8e8e8 !important; 
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    padding: 0 !important;
+    resize: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+    min-height: 100px;
+}
+
+.code-input::placeholder {
+    color: #a0a0a0 !important; /* Lighter gray for placeholder */
+}
+
