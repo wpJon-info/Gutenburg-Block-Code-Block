@@ -21,6 +21,10 @@ return array(
 			'language' => array(
 				'type' => 'string',
 				'default' => 'javascript'
+			),
+			'showLineNumbers' => array(
+				'type' => 'boolean',
+				'default' => false
 			)
 		),
 		'supports' => array(

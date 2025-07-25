@@ -16,6 +16,10 @@
     "language": {
       "type": "string",
       "default": "javascript"
+    },
+    "showLineNumbers": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

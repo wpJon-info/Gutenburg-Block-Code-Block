@@ -8,7 +8,7 @@
   \***********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"jon-gutenberg-dev/code-block","version":"1.0.0","title":"Jon Gutenberg Dev Code Block","category":"text","icon":"media-code","description":"A custom code block for enhanced content editing.","example":{},"attributes":{"content":{"type":"string","default":"// Enter your code here..."},"language":{"type":"string","default":"javascript"}},"supports":{"html":false,"color":{"gradients":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true,"link":true}},"spacing":{"margin":true,"padding":true,"__experimentalDefaultControls":{"margin":false,"padding":false}},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":true,"radius":true,"style":true,"width":true}}},"textdomain":"jon-gutenberg-dev-code-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"jon-gutenberg-dev/code-block","version":"1.0.0","title":"Jon Gutenberg Dev Code Block","category":"text","icon":"media-code","description":"A custom code block for enhanced content editing.","example":{},"attributes":{"content":{"type":"string","default":"// Enter your code here..."},"language":{"type":"string","default":"javascript"},"showLineNumbers":{"type":"boolean","default":false}},"supports":{"html":false,"color":{"gradients":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true,"link":true}},"spacing":{"margin":true,"padding":true,"__experimentalDefaultControls":{"margin":false,"padding":false}},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":true,"radius":true,"style":true,"width":true}}},"textdomain":"jon-gutenberg-dev-code-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ }),
 
@@ -221,42 +221,26 @@ function Save({
     className: `code-display-block language-${language}`
   });
 
-  // Simple syntax highlighting patterns for common languages
-  const highlightCode = (code, lang) => {
-    if (!code) return '';
-    let highlighted = code;
+  // Escape HTML for safe display
+  const escapeHtml = code => {
+    return code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  };
 
-    // Escape HTML first
-    highlighted = highlighted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    switch (lang) {
-      case 'javascript':
-        highlighted = highlighted
-        // Keywords
-        .replace(/\b(const|let|var|function|return|if|else|for|while|import|export|default|from)\b/g, '<span class="keyword">$1</span>')
-        // Strings
-        .replace(/(["'`])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span class="string">$1$2$1</span>')
-        // Comments
-        .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>').replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="comment">$1</span>')
-        // Numbers
-        .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>');
-        break;
-      case 'php':
-        highlighted = highlighted.replace(/\b(function|return|if|else|foreach|while|class|public|private|protected|static)\b/g, '<span class="keyword">$1</span>').replace(/(["'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span class="string">$1$2$1</span>').replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>').replace(/(\$\w+)/g, '<span class="variable">$1</span>');
-        break;
-      case 'css':
-        highlighted = highlighted.replace(/([.#]?[\w-]+)(\s*{)/g, '<span class="selector">$1</span>$2').replace(/([\w-]+)(\s*:)/g, '<span class="property">$1</span>$2').replace(/(["'])((?:\\.|(?!\1)[^\\])*?)\1/g, '<span class="string">$1$2$1</span>').replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="comment">$1</span>');
-        break;
-    }
-    return highlighted;
+  // Map common language names to Prism language classes
+  const getPrismLanguage = lang => {
+    const languageMap = {
+      'js': 'javascript',
+      'html': 'markup',
+      'xml': 'markup',
+      'svg': 'markup',
+      'mathml': 'markup',
+      'ssml': 'markup',
+      'atom': 'markup',
+      'rss': 'markup'
+    };
+    return languageMap[lang] || lang;
   };
-  const addLineNumbers = code => {
-    const lines = code.split('\n');
-    return lines.map((line, index) => `<span class="line-number">${index + 1}</span>${line}`).join('\n');
-  };
-  let processedContent = highlightCode(content, language);
-  if (showLineNumbers) {
-    processedContent = addLineNumbers(processedContent);
-  }
+  const prismLanguage = getPrismLanguage(language);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     ...blockProps,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -267,7 +251,8 @@ function Save({
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         className: "copy-button",
         type: "button",
-        onClick: () => navigator.clipboard?.writeText(content),
+        "data-copy-content": content,
+        "aria-label": "Copy code",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
           width: "16",
           height: "16",
@@ -283,17 +268,17 @@ function Save({
             rx: "2",
             ry: "2"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-            d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+            d: "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2h9a2 2 0 0 1 2 2v1"
           })]
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "code-content",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("pre", {
+        className: showLineNumbers ? 'line-numbers' : '',
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("code", {
-          dangerouslySetInnerHTML: {
-            __html: processedContent
-          }
+          className: `language-${prismLanguage}`,
+          children: escapeHtml(content)
         })
       })
     })]

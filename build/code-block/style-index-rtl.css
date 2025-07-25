@@ -1,28 +1,29 @@
 /*!**************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/code-block/style.scss ***!
   \**************************************************************************************************************************************************************************************************************************************************/
-/* Frontend styles - loaded on both editor and frontend */
+/* Frontend styles - works with Prism.js Light Themes */
 .code-display-block {
   margin: 1.5rem 0;
   border-radius: 8px;
   overflow: hidden;
-  background: #1a1a1a;
-  border: 1px solid #F6F8FA;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
   font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
   font-size: 14px;
   line-height: 1.5;
 }
 
 .code-block-header {
-  background: #FCFCFA;
+  background: #f6f8fa;
   padding: 8px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #e1e4e8;
 }
 
 .language-label {
-  color: #888;
+  color: #586069;
   font-size: 12px;
   text-transform: lowercase;
   font-weight: 500;
@@ -31,97 +32,78 @@
 .copy-button {
   background: none;
   border: none;
-  color: #888;
+  color: #586069;
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
-
 .copy-button:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  color: #0366d6;
+  background: rgba(3, 102, 214, 0.1);
+}
+.copy-button.copied {
+  color: #28a745;
 }
 
 .code-content {
   padding: 16px;
   overflow-x: auto;
-  background-color: #FCFCFA;
+  background-color: #ffffff;
 }
 
-.code-content pre {
+/* Override Prism's default styles to ensure consistency */
+.code-display-block pre[class*=language-] {
   margin: 0;
-  color: #e6e6e6;
-  background: none;
   padding: 0;
+  background: none;
   overflow: visible;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.code-content code {
+.code-display-block code[class*=language-] {
   background: none;
   padding: 0;
-  color: inherit;
   font-size: inherit;
   font-family: inherit;
+  line-height: inherit;
+  white-space: pre;
 }
 
-/* Syntax highlighting - Claude's color scheme */
-.keyword {
-  color: #ff6b6b; /* Coral red for keywords */
+/* Line numbers styling - Prism plugin */
+.code-display-block pre[class*=language-].line-numbers {
+  position: relative;
+  padding-right: 3.8em;
+  counter-reset: linenumber;
 }
-
-.string {
-  color: #51cf66; /* Green for strings */
+.code-display-block pre[class*=language-].line-numbers > code {
+  position: relative;
+  white-space: inherit;
 }
-
-.comment {
-  color: #868e96; /* Gray for comments */
-  font-style: italic;
-}
-
-.number {
-  color: #4dabf7; /* Blue for numbers */
-}
-
-.variable {
-  color: #ffd43b; /* Yellow for variables */
-}
-
-.selector {
-  color: #69db7c; /* Light green for CSS selectors */
-}
-
-.property {
-  color: #ff8cc8; /* Pink for CSS properties */
-}
-
-/* Line numbers */
-.line-number {
-  color: #6272a4;
-  margin-left: 1em;
+.code-display-block .line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  right: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-left: 1px solid #e1e4e8;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-  display: inline-block;
-  width: 2em;
+}
+.code-display-block .line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+.code-display-block .line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #959da5;
+  display: block;
+  padding-left: 0.8em;
   text-align: left;
-}
-
-/* Language-specific adjustments */
-.language-javascript .keyword {
-  color: #ff79c6;
-}
-
-.language-php .keyword {
-  color: #ff79c6;
-}
-
-.language-css .selector {
-  color: #50fa7b;
-}
-
-.language-html .keyword {
-  color: #ff79c6;
 }
 
 /* Responsive design */
